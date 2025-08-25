@@ -1,0 +1,77 @@
+name: 构建和部署文档
+
+# 触发条件
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+# 设置权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 任务
+jobs:
+  # 构建任务
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 缓存依赖
+        uses: actions/cache@v3
+        with:
+          key: mkdocs-material-${{ hashFiles('requirements.txt') }}
+          path: |
+            ~/.cache/pip
+            .cache
+          restore-keys: |
+            mkdocs-material-
+
+      - name: 安装依赖
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 配置 Git
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: 构建文档
+        run: mkdocs build --clean
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: site
+
+  # 部署任务
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
