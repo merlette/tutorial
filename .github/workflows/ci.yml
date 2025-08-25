@@ -1,25 +1,18 @@
 name: 构建和部署文档
 
-# 触发条件
 on:
   push:
     branches:
       - main
       - master
-  pull_request:
-    branches:
-      - main
-      - master
+  workflow_dispatch:
 
-# 设置权限
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
-# 任务
 jobs:
-  # 构建任务
   build:
     runs-on: ubuntu-latest
     steps:
@@ -29,39 +22,32 @@ jobs:
           fetch-depth: 0
 
       - name: 设置 Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: 缓存依赖
-        uses: actions/cache@v3
+      - name: 缓存 pip 依赖
+        uses: actions/cache@v4
         with:
-          key: mkdocs-material-${{ hashFiles('requirements.txt') }}
-          path: |
-            ~/.cache/pip
-            .cache
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
-            mkdocs-material-
+            ${{ runner.os }}-pip-
 
       - name: 安装依赖
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 配置 Git
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-
       - name: 构建文档
-        run: mkdocs build --clean
+        run: |
+          mkdocs build --clean
 
       - name: 上传构建产物
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
-  # 部署任务
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -74,4 +60,4 @@ jobs:
     steps:
       - name: 部署到 GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
