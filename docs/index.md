@@ -1,17 +1,23 @@
-# Welcome to MkDocs
+---
+hide:
+  - footer
+---
+# Java 教程
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+欢迎来到 Java 学习与实践站点。你将通过循序渐进的章节，从基础语法到面向对象与高级主题，快速构建 Java 编程能力。
 
-## Commands
+- 快速开始：从第一个 Java 程序开始，完成环境安装与运行
+- 结构化学习：基础 → 面向对象 → 高级主题
+- 可复制示例：所有代码片段均可直接复制运行
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## 学习导航
 
-## Project layout
+- 基础入门
+  - 第一个程序：HelloWorld
+  - 基础语法要点（标识符、类型、运算符、控制流）
+- 面向对象
+  - 类与对象、继承、多态、接口与抽象类
+- 高级主题
+  - 集合、泛型、异常处理、IO/NIO、并发
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+前往完整目录：见侧边栏或顶部导航中的「Java 教程」。

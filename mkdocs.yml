@@ -1,11 +1,11 @@
-site_name: 我的文档站点
-site_url: https://yourusername.github.io/your-repo-name/
-site_author: Your Name
+site_name: Tutorial Box
+site_url: https://tutorial.void-boxm.com/
+site_author: VoidBox Studio
 site_description: >-
   基于 MkDocs Material 构建的文档站点
 
-repo_name: yourusername/your-repo-name
-repo_url: https://github.com/yourusername/your-repo-name
+repo_name: merlette/tutorial
+repo_url: https://github.com/merlette/tutorial
 
 theme:
   name: material
@@ -63,10 +63,16 @@ theme:
 nav:
   - 首页: index.md
   - 关于: about.md
-  - 用户指南:
-    - guide/index.md
-    - 快速开始: guide/getting-started.md
-    - 高级功能: guide/advanced.md
+  - Java 教程:
+    - java/index.md
+    - 基础入门:
+      - java/basic/index.md
+      - 第一个程序 HelloWorld: java/basic/hello-world.md
+      - 基础语法: java/basic/syntax.md
+    - 面向对象:
+      - java/oop/index.md
+    - 高级主题:
+      - java/advanced/index.md
 
 # 插件配置
 plugins:
@@ -124,9 +130,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourusername
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/yourusername
+      link: https://github.com/merlette
   
   analytics:
     provider: google
@@ -134,4 +138,5 @@ extra:
 
 # 版权信息
 copyright: |
-  &copy; 2025 <a href="https://github.com/yourusername"  target="_blank" rel="noopener">Your Name</a>
+  &copy; 2025 <a href="https://github.com/merlette"  target="_blank" rel="noopener">MERLETTE</a>
+
